@@ -1,23 +1,28 @@
 # perldoc.vim
 
-interface to perldoc. you can get perldoc with integrated operation for vim.
+[![](https://spacevim.org/img/build-with-SpaceVim.svg)](https://spacevim.org)
+
+Interface to perldoc. Base on SpaceVim's public API.
 
 ## Usage
 
 ### Modules
-```
-:Perldoc UNIVERSAL
+
+```viml
+Perldoc UNIVERSAL
 ```
 Possible to complete names with `<tab>`
 
 ### Functions
-```
-:Perldoc -f grep
+
+```viml
+Perldoc -f grep
 ```
 
 ### Variables
-```
-:Perldoc -v $$
+
+```viml
+Perldoc -v $$
 ```
 
 ## Configuration
