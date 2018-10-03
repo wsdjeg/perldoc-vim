@@ -1,4 +1,4 @@
-if exists("g:loaded_perldoc")
+if exists('g:loaded_perldoc')
   finish
 endif
 let g:loaded_perldoc = 1
@@ -7,7 +7,7 @@ let s:buf_nr = -1
 let s:mode = ''
 let s:last_word = ''
 
-function! s:PerldocView()
+function! s:PerldocView() abort
   " base on FuzzyFinder WindowManager
   let cwd = getcwd()
 
@@ -27,7 +27,7 @@ function! s:PerldocView()
   " countermeasure for auto-cd script
   execute ':lcd ' . cwd
   setlocal filetype=man
-  setlocal bufhidden=delete
+  setlocal bufhidden=wipe
   setlocal buftype=nofile
   setlocal noswapfile
   setlocal nobuflisted
@@ -38,8 +38,6 @@ function! s:PerldocView()
   setlocal iskeyword-=-
 
   call s:SetKeyMaps()
-
-  au BufHidden <buffer> let <SID>buf_nr = -1
 endfunction
 
 function! s:SetKeyMaps()
@@ -47,7 +45,7 @@ function! s:SetKeyMaps()
   noremap <buffer> <silent> s :call <SID>Toggle()<CR>
 endfunction
 
-function! s:PerldocWord(word)
+function! s:PerldocWord(word) abort
   if s:ClassExist(a:word)
     let s:mode = ''
     let s:last_word = a:word
@@ -120,7 +118,7 @@ function! s:VarsExist(word)
   endif
 endfunction
 
-function! perldoc#open(...)
+function! perldoc#open(...) abort
   let word = join(a:000, ' ')
   if !strlen(word)
     let word = expand('<cword>')
