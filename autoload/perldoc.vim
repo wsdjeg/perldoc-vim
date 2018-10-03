@@ -16,10 +16,6 @@ function! s:PerldocView() abort
     exe 'leftabove ' . split_modifier . 'new'
     file `="[Perldoc]"`
     let s:buf_nr = bufnr('%')
-  elseif bufwinnr(s:buf_nr) == -1
-    exe 'leftabove ' . split_modifier . 'split'
-    execute s:buf_nr . 'buffer'
-    delete _
   elseif bufwinnr(s:buf_nr) != bufwinnr('%')
     execute bufwinnr(s:buf_nr) . 'wincmd w'
   endif
@@ -84,11 +80,13 @@ endfunction
 
 function! s:ShowCmd(cmd)
   silent call s:PerldocView()
-  setlocal modifiable
+  let save_read = &readonly
+  setlocal modifiable noreadonly
   normal ggdG
   silent execute a:cmd
   normal gg
   setlocal nomodifiable
+  let &readonly = save_read
 endfunction
 
 function! s:ClassExist(word)
